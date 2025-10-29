@@ -5,7 +5,7 @@ const ClassDetail = () => {
   const { classId } = useParams();
 
   // State for all our data
-  const [classInfo, setClassInfo] = useState([]);
+  const [classInfo, setClassInfo] = useState(null);
   const [assignments, setAssignments] = useState([]);
   const [loading, setLoading] = useState(true);
   
@@ -52,7 +52,7 @@ const ClassDetail = () => {
     const token = localStorage.getItem('token');
     
     try {
-      const response = await fetch('${import.meta.env.VITE_API_URL}/api/assignments', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/assignments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

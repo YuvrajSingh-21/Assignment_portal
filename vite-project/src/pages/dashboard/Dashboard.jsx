@@ -18,7 +18,7 @@ const Dashboard = () => {
         return;
       }
 
-      const res = await fetch('${import.meta.env.VITE_API_URL}/api/classes', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/classes`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -106,14 +106,14 @@ const Classes = () => {
             if (!token) throw new Error('Authentication token not found.');
 
             // Fetch classes user is part of (taught or enrolled)
-            const myClassesRes = await axios.get('${import.meta.env.VITE_API_URL}/api/classes', {
+            const myClassesRes = await axios.get(`${import.meta.env.VITE_API_URL}/api/classes`, {
                  headers: { 'Authorization': `Bearer ${token}` }
             });
             setMyClasses(myClassesRes.data);
 
             // If user is a student, fetch all classes they can potentially join
             if (userRole === 'student') {
-                const allClassesRes = await axios.get('${import.meta.env.VITE_API_URL}/api/classes/all', {
+                const allClassesRes = await axios.get(`${import.meta.env.VITE_API_URL}/api/classes/all`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 setAllClasses(allClassesRes.data);
