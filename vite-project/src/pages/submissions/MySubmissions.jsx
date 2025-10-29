@@ -115,8 +115,8 @@ const MySubmissions = () => {
             if (!token) throw new Error('You are not logged in.');
             
             const [submissionsRes, assignmentsRes] = await Promise.all([
-                axios.get('http://localhost:5000/api/submissions', { headers: { 'Authorization': `Bearer ${token}` } }),
-                axios.get('http://localhost:5000/api/assignments', { headers: { 'Authorization': `Bearer ${token}` } })
+                axios.get(`${import.meta.env.VITE_API_URL}/api/submissions`, { headers: { 'Authorization': `Bearer ${token}` } }),
+                axios.get(`${import.meta.env.VITE_API_URL}/api/assignments`, { headers: { 'Authorization': `Bearer ${token}` } })
             ]);
 
             setSubmissions(submissionsRes.data);
@@ -137,7 +137,7 @@ const MySubmissions = () => {
         try {
             // Send FormData using axios
             const res = await axios.post(
-                'http://localhost:5000/api/submissions',
+                '${import.meta.env.VITE_API_URL}/api/submissions',
                 formData,
                 { headers: { 
                     'Authorization': `Bearer ${token}`,
@@ -168,7 +168,7 @@ const MySubmissions = () => {
     const handleGrade = async (gradeData) => {
         try {
             const res = await axios.put(
-                `http://localhost:5000/api/submissions/${selectedSubmission._id}/grade`,
+                `${import.meta.env.VITE_API_URL}/api/submissions/${selectedSubmission._id}/grade`,
                 gradeData, // This is JSON, so it's fine
                 { headers: { 'Authorization': `Bearer ${token}` } }
             );
@@ -188,7 +188,7 @@ const MySubmissions = () => {
     const handleDelete = async (id) => {
         if (!window.confirm("Are you sure? This cannot be undone.")) return;
         try {
-            await axios.delete(`http://localhost:5000/api/submissions/${id}`, {
+            await axios.delete(`${import.meta.env.VITE_API_URL}/api/submissions/${id}`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             // Remove submission from the list
@@ -209,7 +209,7 @@ const MySubmissions = () => {
       // Make sure it doesn't already start with http
       if (filePath.startsWith('http')) return filePath;
       // Create full URL to the backend's static 'uploads' folder
-      return `http://localhost:5000/${filePath.replace(/\\/g, "/")}`;
+      return `${import.meta.env.VITE_API_URL}/${filePath.replace(/\\/g, "/")}`;
     };
 
     if (isLoading) return <div className="p-6 text-center">Loading...</div>;

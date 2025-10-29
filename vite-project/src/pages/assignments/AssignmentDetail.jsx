@@ -218,10 +218,10 @@ const AssignmentsPage = () => {
     setError(null);
     try {
       if (!token) throw new Error('You are not logged in.');
-      const assignRes = await axios.get('http://localhost:5000/api/assignments', { headers: { 'Authorization': `Bearer ${token}` } });
+      const assignRes = await axios.get(`${import.meta.env.VITE_API_URL}/api/assignments`, { headers: { 'Authorization': `Bearer ${token}` } });
       setAssignments(assignRes.data);
       if (userRole === 'teacher' || userRole === 'admin') {
-        const classesRes = await axios.get('http://localhost:5000/api/classes', { headers: { 'Authorization': `Bearer ${token}` } });
+        const classesRes = await axios.get(`${import.meta.env.VITE_API_URL}/api/classes`, { headers: { 'Authorization': `Bearer ${token}` } });
         setUserClasses(classesRes.data.filter(c => c.teacher?._id === user?.id || c.teacher === user?.id));
       }
     } catch (err) {
@@ -255,8 +255,8 @@ const AssignmentsPage = () => {
 
     const method = editingAssignment ? 'put' : 'post';
     const url = editingAssignment
-        ? `http://localhost:5000/api/assignments/${editingAssignment._id}`
-        : 'http://localhost:5000/api/assignments';
+        ? `${import.meta.env.VITE_API_URL}/api/assignments/${editingAssignment._id}`
+        : '${import.meta.env.VITE_API_URL}/api/assignments';
 
     try {
       // Send FormData, Axios handles headers
@@ -286,7 +286,7 @@ const AssignmentsPage = () => {
     };
     if (!window.confirm("Are you sure you want to delete this assignment?")) return;
     try {
-        await axios.delete(`http://localhost:5000/api/assignments/${id}`, { headers: { 'Authorization': `Bearer ${token}` } });
+        await axios.delete(`${import.meta.env.VITE_API_URL}/api/assignments/${id}`, { headers: { 'Authorization': `Bearer ${token}` } });
         setAssignments(prev => prev.filter(a => a._id !== id));
     } catch (err) {
         alert(err.response?.data?.message || 'Failed to delete assignment.');
