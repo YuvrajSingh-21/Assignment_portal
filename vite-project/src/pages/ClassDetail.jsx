@@ -10,7 +10,7 @@ const ClassDetail = () => {
     const fetchClassDetails = async () => {
       const token = localStorage.getItem('token');
       try {
-        const response = await fetch(`http://localhost:5000/api/classes/${classId}`, {
+        const response = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/classes/${classId}`, {
           headers: { 'Authorization': `Bearer ${token}` }
         });
         if (!response.ok) throw new Error('Could not fetch class details');

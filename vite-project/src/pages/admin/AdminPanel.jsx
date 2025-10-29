@@ -27,10 +27,10 @@ const AdminPanel = () => {
       setError(null);
       try {
         const [usersRes, classesRes] = await Promise.all([
-          axios.get('http://localhost:5000/api/admin/users', {
+          axios.get('${import.meta.env.VITE_API_URL}/api/auth/users', {
             headers: { Authorization: `Bearer ${token}` }
           }),
-          axios.get('http://localhost:5000/api/admin/classes', {
+          axios.get('${import.meta.env.VITE_API_URL}/api/auth/classes', {
             headers: { Authorization: `Bearer ${token}` }
           })
         ]);

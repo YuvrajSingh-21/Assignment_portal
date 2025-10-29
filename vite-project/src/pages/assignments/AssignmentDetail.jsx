@@ -146,7 +146,7 @@ const AssignmentCard = ({ assignment, onEdit, onDelete, userRole, navigate }) =>
     const getFileUrl = (filePath) => {
         if (!filePath) return '#';
         // Construct full URL assuming server runs on localhost:5000 and serves 'uploads'
-        return `http://localhost:5000/${filePath.replace(/\\/g, "/")}`;
+        return `${import.meta.env.VITE_API_URL}/${filePath.replace(/\\/g, "/")}`;
     };
 
     return (

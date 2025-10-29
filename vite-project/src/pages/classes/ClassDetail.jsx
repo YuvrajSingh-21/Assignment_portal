@@ -21,14 +21,14 @@ const ClassDetail = () => {
     setLoading(true);
     try {
       // Fetch the main class details
-      const classRes = await fetch(`http://localhost:5000/api/classes/${classId}`, {
+      const classRes = await fetch(`${import.meta.env.VITE_API_URL}/api/classes/${classId}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const classData = await classRes.json();
       setClassInfo(classData);
 
       // Fetch all assignments for this specific class
-      const assignmentRes = await fetch(`http://localhost:5000/api/assignments/class/${classId}`, {
+      const assignmentRes = await fetch(`${import.meta.env.VITE_API_URL}/api/assignments/class/${classId}`, {
         headers: { 'Authorization': `Bearer ${token}` }
       });
       const assignmentData = await assignmentRes.json();
@@ -52,7 +52,7 @@ const ClassDetail = () => {
     const token = localStorage.getItem('token');
     
     try {
-      const response = await fetch('http://localhost:5000/api/assignments', {
+      const response = await fetch('${import.meta.env.VITE_API_URL}/api/assignments', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

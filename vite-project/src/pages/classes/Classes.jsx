@@ -106,14 +106,14 @@ const Classes = () => {
             if (!token) throw new Error('Authentication token not found.');
 
             // Fetch classes user is part of (taught or enrolled)
-            const myClassesRes = await axios.get('http://localhost:5000/api/classes', {
+            const myClassesRes = await axios.get('${import.meta.env.VITE_API_URL}/api/classes', {
                  headers: { 'Authorization': `Bearer ${token}` }
             });
             setMyClasses(myClassesRes.data);
 
             // If user is a student, fetch all classes they can potentially join
             if (userRole === 'student') {
-                const allClassesRes = await axios.get('http://localhost:5000/api/classes/all', {
+                const allClassesRes = await axios.get('${import.meta.env.VITE_API_URL}/api/classes/all', {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 setAllClasses(allClassesRes.data);
@@ -148,8 +148,8 @@ const Classes = () => {
 
         const method = editingClass ? 'put' : 'post';
         const url = editingClass
-            ? `http://localhost:5000/api/classes/${editingClass._id}`
-            : 'http://localhost:5000/api/classes';
+            ? `${import.meta.env.VITE_API_URL}/api/classes/${editingClass._id}`
+            : '${import.meta.env.VITE_API_URL}/api/classes';
 
         try {
             const res = await axios[method](url, formData, {
@@ -175,7 +175,7 @@ const Classes = () => {
         if (!window.confirm("Are you sure you want to delete this class? This action cannot be undone.")) return;
 
         try {
-            await axios.delete(`http://localhost:5000/api/classes/${classId}`, {
+            await axios.delete(`${import.meta.env.VITE_API_URL}/api/classes/${classId}`, {
                 headers: { 'Authorization': `Bearer ${token}` },
             });
             // Remove class from the list
@@ -189,7 +189,7 @@ const Classes = () => {
     const handleJoinClass = async (classId) => {
          if (userRole !== 'student') return;
         try {
-            const res = await axios.post(`http://localhost:5000/api/classes/${classId}/join`, {}, { // Added empty object for POST body
+            const res = await axios.post(`${import.meta.env.VITE_API_URL}/api/classes/${classId}/join`, {}, { // Added empty object for POST body
                 headers: { 'Authorization': `Bearer ${token}` },
             });
             alert(res.data.message || 'Successfully joined class!');
