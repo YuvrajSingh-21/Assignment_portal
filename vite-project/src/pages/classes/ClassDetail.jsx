@@ -5,7 +5,7 @@ const ClassDetail = () => {
   const { classId } = useParams();
 
   // State for all our data
-  const [classInfo, setClassInfo] = useState(null);
+  const [classInfo, setClassInfo] = useState([]);
   const [assignments, setAssignments] = useState([]);
   const [loading, setLoading] = useState(true);
   
