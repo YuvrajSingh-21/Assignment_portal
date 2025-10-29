@@ -256,7 +256,7 @@ const AssignmentsPage = () => {
     const method = editingAssignment ? 'put' : 'post';
     const url = editingAssignment
         ? `${import.meta.env.VITE_API_URL}/api/assignments/${editingAssignment._id}`
-        : '${import.meta.env.VITE_API_URL}/api/assignments';
+        : `${import.meta.env.VITE_API_URL}/api/assignments`;
 
     try {
       // Send FormData, Axios handles headers
